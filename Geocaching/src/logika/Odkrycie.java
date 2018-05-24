@@ -11,7 +11,7 @@ public class Odkrycie {
 	
 	public Odkrycie(Poszukiwacz poszukiwacz, Skrzynka skrzynka) {
 		super();
-		this.poszukiwacz = poszukiwacz;
+		this.poszukiwacz = poszukiwacz; 
 		this.skrzynka = skrzynka;
 		this.dataZnalezienia = new GregorianCalendar();
 	}
