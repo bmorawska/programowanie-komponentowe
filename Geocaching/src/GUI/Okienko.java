@@ -18,6 +18,7 @@ public class Okienko extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					Okienko frame = new Okienko();
 					frame.setVisible(true);
 				} catch (Exception e) {
