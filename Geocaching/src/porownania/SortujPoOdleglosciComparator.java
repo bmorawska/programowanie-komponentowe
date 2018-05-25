@@ -4,7 +4,7 @@ import java.util.Comparator;
 import logika.Wspolrzedne;
 import logika.Skrzynka;
 
-public class SortujPoOdleglosciComparator<Skrzynka> implements Comparator<Skrzynka> {
+public class SortujPoOdleglosciComparator implements Comparator<Skrzynka> {
 	
 	Wspolrzedne wspolrzedne;
 

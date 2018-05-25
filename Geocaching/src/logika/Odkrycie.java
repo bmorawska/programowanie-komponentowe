@@ -23,6 +23,11 @@ public class Odkrycie {
 		this.dataZnalezienia = dataZnalezienia;
 	}
 	
+	
+	public GregorianCalendar getDataZnalezienia() {
+		return dataZnalezienia;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -37,6 +42,7 @@ public class Odkrycie {
 
 	@Override
 	public String toString() {
-		return "Odkrycie [id=" + id + ", poszukiwacz=" + poszukiwacz + ", skrzynka=" + skrzynka + "]";
+		return "Odkrycie [id=" + id + ", poszukiwacz=" + poszukiwacz + ", skrzynka=" + skrzynka + ", dataZnalezienia="
+				+ dataZnalezienia + "]";
 	}
 }
