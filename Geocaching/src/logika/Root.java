@@ -1,14 +1,17 @@
 package logika;
 
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 
+import dane.XMLable;
 import porownania.SortujPoDacieZalozeniaComparator;
 import wyjatki.ObiektOTejNazwiJestJuzNaLiscieException;
 import wyjatki.ObiektOTejNazwieNieIstniejeException;
 
-public class Root{
+public class Root implements XMLable<Root>{
 	
 	private ArrayList<Poszukiwacz> poszukiwacze;
 	private ArrayList<Skrzynka> skrzynki;
@@ -120,7 +123,7 @@ public class Root{
 			}
 		}
 		
-		Collections.sort(skrzynkiMiedzyDatami, new SortujPoDacieZalozeniaComparator<>());
+		Collections.sort(skrzynkiMiedzyDatami, new SortujPoDacieZalozeniaComparator());
 		return skrzynkiMiedzyDatami;
 	}
 	
@@ -142,6 +145,18 @@ public class Root{
 		else {
 			lista.add(obj);
 		}
+	}
+
+	@Override
+	public void zapiszJakoXML(XMLEncoder e) {
+		
+		e.writeObject(this);
+	}
+	@Override
+	public Root odczytajZXML(XMLDecoder d) {
+		
+		Root root = (Root) d.readObject();
+		return root;
 	}
 	
 	

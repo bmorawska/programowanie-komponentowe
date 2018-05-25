@@ -49,7 +49,7 @@ public class Skrzynka {
 			this.rozmiar = rozmiar;
 			this.zalozyciel = zalozyciel;
 			this.opis = opis;
-			this.czyDostepna = true;
+			this.czyDostepna = true; 
 			this.liczbaOdnalezien = 0;
 			this.dataZalozenia = dataZalozenia;		//dzisiejsza data
 	}
