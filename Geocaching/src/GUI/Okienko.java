@@ -19,7 +19,7 @@ public class Okienko extends JFrame {
 			public void run() {
 				try {
 					
-					Okienko frame = new Okienko();
+					Okienko frame = new Okienko();				
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
