@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 
+import dane.PolaczenieZBazaDanych;
 import dane.XMLable;
 import porownania.SortujPoDacieZalozeniaComparator;
 import wyjatki.ObiektOTejNazwiJestJuzNaLiscieException;
@@ -17,12 +18,15 @@ public class Root implements XMLable<Root>{
 	private ArrayList<Skrzynka> skrzynki;
 	private ArrayList<Odkrycie> odkrycia;
 	
+	private PolaczenieZBazaDanych polaczenieZBazaDanych;
 	
 	public Root() {
 		super();
 		poszukiwacze = new ArrayList<>();
 		skrzynki = new ArrayList<>();
 		odkrycia = new ArrayList<>();
+		
+		
 	}
 	
 	public ArrayList<Poszukiwacz> getPoszukiwacze() {
