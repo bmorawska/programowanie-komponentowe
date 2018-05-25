@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class Okienko extends JFrame {
+public class OProgramieGUI extends JFrame {
 
 	private JPanel contentPane;
 
@@ -18,8 +18,7 @@ public class Okienko extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
-					Okienko frame = new Okienko();				
+					OProgramieGUI frame = new OProgramieGUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -31,7 +30,7 @@ public class Okienko extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Okienko() {
+	public OProgramieGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

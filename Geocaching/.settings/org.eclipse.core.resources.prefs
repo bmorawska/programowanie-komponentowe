@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/GUI/MapaGUI.java=UTF-8
+encoding//src/GUI/PoszukiwaczGUI.java=UTF-8
 encoding//src/logika/Skrzynka.java=UTF-8
 encoding//src/porownania/SortujPoDacieZalozeniaComparator.java=UTF-8
 encoding//src/porownania/SortujPoNazwieComparator.java=UTF-8
