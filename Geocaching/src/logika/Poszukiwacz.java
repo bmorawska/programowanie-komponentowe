@@ -13,6 +13,13 @@ public class Poszukiwacz {
 		this.poziom = Poziom.NOWICJUSZ;
 	}
 	
+	public Poszukiwacz(String pseudonim, String email, Poziom poziom) {
+		super();
+		this.pseudonim = pseudonim;
+		this.email = email;
+		this.poziom = poziom;
+	}
+	
 	public String getPseudonim() {
 		return pseudonim;
 	}

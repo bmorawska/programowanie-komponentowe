@@ -4,20 +4,22 @@ import java.util.GregorianCalendar;
 
 public class Odkrycie {
 	
-	private int id;
+	private final int id;
 	private Poszukiwacz poszukiwacz;
 	private Skrzynka skrzynka;
 	private GregorianCalendar dataZnalezienia;
 	
-	public Odkrycie(Poszukiwacz poszukiwacz, Skrzynka skrzynka) {
+	public Odkrycie(int id, Poszukiwacz poszukiwacz, Skrzynka skrzynka) {
 		super();
+		this.id = id;
 		this.poszukiwacz = poszukiwacz; 
 		this.skrzynka = skrzynka;
 		this.dataZnalezienia = new GregorianCalendar();
 	}
 	
-	public Odkrycie(Poszukiwacz poszukiwacz, Skrzynka skrzynka, GregorianCalendar dataZnalezienia) {
+	public Odkrycie(int id, Poszukiwacz poszukiwacz, Skrzynka skrzynka, GregorianCalendar dataZnalezienia) {
 		super();
+		this.id = id;
 		this.poszukiwacz = poszukiwacz;
 		this.skrzynka = skrzynka;
 		this.dataZnalezienia = dataZnalezienia;
