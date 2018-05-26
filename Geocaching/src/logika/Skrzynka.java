@@ -40,7 +40,9 @@ public class Skrzynka {
 			Rozmiar rozmiar, 
 			Poszukiwacz zalozyciel,
 			String opis,
-			GregorianCalendar dataZalozenia) 
+			GregorianCalendar dataZalozenia,
+			boolean czyDostepna,
+			int liczbaOdnalezien) 
 	{
 			super();
 			this.nazwa = nazwa;
@@ -49,9 +51,9 @@ public class Skrzynka {
 			this.rozmiar = rozmiar;
 			this.zalozyciel = zalozyciel;
 			this.opis = opis;
-			this.czyDostepna = true; 
-			this.liczbaOdnalezien = 0;
-			this.dataZalozenia = dataZalozenia;		//dzisiejsza data
+			this.czyDostepna = czyDostepna; 
+			this.liczbaOdnalezien = liczbaOdnalezien;
+			this.dataZalozenia = dataZalozenia;	
 	}
 	
 	public String getOpis() {
