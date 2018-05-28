@@ -32,6 +32,10 @@ public class Poszukiwacz {
 		return poziom;
 	}
 	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public void setPoziom(Poziom poziom) {
 		this.poziom = poziom;
 	}

@@ -18,6 +18,8 @@ public class Root implements XMLable<Root> {
 	private ArrayList<Poszukiwacz> poszukiwacze;
 	private ArrayList<Skrzynka> skrzynki;
 	private ArrayList<Odkrycie> odkrycia;
+	
+	private Map<String, Object> context = new HashMap <String, Object>();	
 
 	public Root() {
 		super();
@@ -30,7 +32,7 @@ public class Root implements XMLable<Root> {
 	}
 
 	private void mapujBazeDanych() {
-		Map<String, Object> context = new HashMap <String, Object>();	
+		//Map<String, Object> context = new HashMap <String, Object>();	
 		PoszukiwaczDane poszukiwaczDane = new PoszukiwaczDane();
 		SkrzynkaDane skrzynkaDane = new SkrzynkaDane(poszukiwacze);
 		OdkryciaDane odkryciaDane = new OdkryciaDane(poszukiwacze, skrzynki);
@@ -50,18 +52,25 @@ public class Root implements XMLable<Root> {
 		zmienBazeDanych("UPDATE poszukiwacz SET email = 'Baldus97@gmail.com' WHERE pseudonim = 'Baldus'");
 		*/
 	}
+	
+	public void odswiezPoszukiwaczy() {
+		//Map<String, Object> context = new HashMap <String, Object>();	
+		PoszukiwaczDane poszukiwaczDane = new PoszukiwaczDane();
+		poszukiwaczDane.wykonaj(context);
+		poszukiwacze = (ArrayList<Poszukiwacz>) context.get("wynik");
+	}
 
-	private void zmienBazeDanych(String sql) {
+	public void zmienBazeDanych(String sql) {
 		InsertUpdateDeleteDane iudd = new InsertUpdateDeleteDane(sql);
 		iudd.zmien();	
 	}
 
-	private void usunZBazyDanych(String sql) {
+	public void usunZBazyDanych(String sql) {
 		InsertUpdateDeleteDane iudd = new InsertUpdateDeleteDane(sql);
 		iudd.zmien();
 	}
 
-	private void dodajDoBazyDanych(String sql) {
+	public void dodajDoBazyDanych(String sql) {
 		InsertUpdateDeleteDane iudd = new InsertUpdateDeleteDane(sql);
 		iudd.zmien();
 	}
@@ -196,6 +205,28 @@ public class Root implements XMLable<Root> {
 
 		Root root = (Root) d.readObject();
 		return root;
+	}
+
+	public String getEmailFromPseudonim(String pseudonim) {
+		
+		for (Poszukiwacz p : poszukiwacze) {
+			if (p.getPseudonim().equals(pseudonim)) {
+				return p.getEmail();
+			}
+		}
+		return "";
+		
+	}
+	
+	public String getPoziomFromPseudonim(String pseudonim) {
+		
+		for (Poszukiwacz p : poszukiwacze) {
+			if (p.getPseudonim().equals(pseudonim)) {
+				return p.getPoziom().toString();
+			}
+		}
+		return "";
+		
 	}
 
 }
