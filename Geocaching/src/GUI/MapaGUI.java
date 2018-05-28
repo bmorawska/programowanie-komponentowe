@@ -59,7 +59,7 @@ public class MapaGUI extends JFrame {
 	
 	private Root root = new Root();
 	
-	private PoszukiwaczGUI poszukiwaczGUI = new PoszukiwaczGUI();
+	//private PoszukiwaczGUI poszukiwaczGUI = new PoszukiwaczGUI();
 	
 	
 	public static void main(String[] args) {
@@ -224,7 +224,7 @@ public class MapaGUI extends JFrame {
 		poszukiwaczBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				poszukiwaczGUI.setVisible(true);
+				//poszukiwaczGUI.setVisible(true);
 				setVisible(false);
 			}
 		});
