@@ -2,97 +2,156 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JList;
-import java.awt.Scrollbar;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.JScrollPane;
 
-public class PoszukiwaczGUI extends JFrame {
+public class PoszukiwaczGUI extends JPanel {
 
-	private JPanel contentPane;
+	private static final long serialVersionUID = 1L;
+	                           
 	private JTable table;
-	private String[] columnNames = {"Pseudonim", "Email", "Poziom"};
-	
 	private RootGUI rootGUI;
+	private Object dane[][];
+	private JButton updateButton;
+	private JButton insertButton;
+	private JButton deleteButton;
+	private JButton odswiezButton;
+	private JLabel napis;
+	private static final String obrazekPoszukiwacz = "/obrazki/poszukiwacz.png";
+	private ImageIcon ikona;
 
 	public PoszukiwaczGUI(RootGUI rootGUI) {
+		super();
 		
 		this.rootGUI = rootGUI;
+		dane = rootGUI.poszukiwaczeArrayListToObject2D();
 		
-		//Ustawienia okna
-		setBackground(Color.WHITE);
-		setTitle("Geocaching");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(500, 150, 1100, 800);
-		getContentPane().setLayout(null);
 		
-		JButton OdswiezBazeDanychButton = new JButton("Odśwież bazę danych");
-		OdswiezBazeDanychButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				DefaultTableModel model = new DefaultTableModel();
-			    table.setModel(model);
+		
+		setLayout(new GridBagLayout());
+		GridBagConstraints constraints = new GridBagConstraints();
+		
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		constraints.gridwidth = 3;
+		constraints.gridheight = 1;
+		constraints.anchor = GridBagConstraints.FIRST_LINE_START;
+		constraints.weighty = 0.01;
+		
+		ikona = new ImageIcon(MapaGUI.class.getResource(obrazekPoszukiwacz));
+		napis = new JLabel("      Dane poszukiwaczy", ikona, JLabel.CENTER);
+		napis.setFont(new Font("Tahoma", 10 , 30));
+		add(napis, constraints);
+		
+		
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		constraints.gridwidth = 3;
+		constraints.gridheight = 5;
+		constraints.ipadx = 200;
+		constraints.ipady = 480;
+		constraints.anchor = GridBagConstraints.CENTER;
+		constraints.weightx = 0.01;
+		constraints.weighty = 0.01;
 
-			    model.setColumnIdentifiers(columnNames);
+		table = new JTable(new Tabelka(dane));
+		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		table.setFillsViewportHeight(true);
+		
+		JScrollPane tableScrollPane = new JScrollPane(table);
+		add(tableScrollPane , constraints);
+		setOpaque(true);
+
+		constraints.gridx = 3;
+		constraints.gridy = 1;
+		constraints.gridwidth = 1;
+		constraints.gridheight = 1;
+		constraints.ipadx = 30;
+		constraints.ipady = 10;
+		constraints.anchor = GridBagConstraints.CENTER;
+		updateButton = new JButton("Zmień dane o poszukiwacza");
+		add(updateButton , constraints);
+		updateButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				UpdatePoszukiwaczGUI updatePoszukiwaczGUI = new UpdatePoszukiwaczGUI(rootGUI);
 			}
 		});
-		OdswiezBazeDanychButton.setBounds(827, 48, 231, 48);
-		getContentPane().add(OdswiezBazeDanychButton);
 		
-		JButton btnUsuPoszukiwaczaZ = new JButton("Usuń poszukiwacza z bazy danych");
-		btnUsuPoszukiwaczaZ.setBounds(827, 128, 231, 48);
-		getContentPane().add(btnUsuPoszukiwaczaZ);
+		constraints.gridx = 3;
+		constraints.gridy = 2;
+		constraints.gridwidth = 1;
+		constraints.gridheight = 1;
+		constraints.ipadx = 25;
+		constraints.ipady = 10;
+		constraints.anchor = GridBagConstraints.CENTER;
+		insertButton = new JButton("Dodaj nowego poszukiwacza");
+		add(insertButton , constraints);
+		insertButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				InsertPoszukiwaczGUI insertPoszukiwaczGUI = new InsertPoszukiwaczGUI(rootGUI);
+			}
+		});
 		
-		JButton btnDodajPoszukiwaczaDo = new JButton("Dodaj poszukiwacza do bazy danych");
-		btnDodajPoszukiwaczaDo.setBounds(827, 209, 231, 48);
-		getContentPane().add(btnDodajPoszukiwaczaDo);
+		constraints.gridx = 3;
+		constraints.gridy = 3;
+		constraints.gridwidth = 1;
+		constraints.gridheight = 1;
+		constraints.ipadx = 75;
+		constraints.ipady = 10;
+		constraints.anchor = GridBagConstraints.CENTER;
+		deleteButton = new JButton("Usuń poszukiwacza");
+		add(deleteButton , constraints);
+		deleteButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DeletePoszukiwaczGUI deletePoszukiwaczGUI = new DeletePoszukiwaczGUI(rootGUI);
+			}
+		});
 		
-		JButton btnZmieDanePoszukiwacza = new JButton("Zmień dane poszukiwacza ");
-		btnZmieDanePoszukiwacza.setBounds(827, 294, 231, 48);
-		getContentPane().add(btnZmieDanePoszukiwacza);
+		constraints.gridx = 3;
+		constraints.gridy = 4;
+		constraints.gridwidth = 1;
+		constraints.gridheight = 1;
+		constraints.ipadx = 100;
+		constraints.ipady = 10;
+		constraints.anchor = GridBagConstraints.CENTER;
+		odswiezButton = new JButton("Odśwież tabelę");
+		add(odswiezButton , constraints);
 		
-		JLabel lblUstawieniaFiltrowania = new JLabel("Ustawienia filtrowania");
-		lblUstawieniaFiltrowania.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblUstawieniaFiltrowania.setBounds(859, 381, 169, 32);
-		getContentPane().add(lblUstawieniaFiltrowania);
-		
-		JCheckBox chckbxSortujPoNazwie = new JCheckBox("Sortuj po nazwie");
-		chckbxSortujPoNazwie.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		chckbxSortujPoNazwie.setBounds(859, 439, 149, 23);
-		getContentPane().add(chckbxSortujPoNazwie);
-		
-		JCheckBox chckbxSortujPoPoziomie = new JCheckBox("Sortuj po poziomie");
-		chckbxSortujPoPoziomie.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		chckbxSortujPoPoziomie.setBounds(859, 497, 149, 23);
-		getContentPane().add(chckbxSortujPoPoziomie);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(780, 57, -736, 602);
-		getContentPane().add(scrollPane);
-		
-		table = new JTable();
-		scrollPane.setViewportView(table);
-		table.setBorder(new LineBorder(new Color(0, 0, 0)));
-		
-		
+		odswiezButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				rootGUI.odswiezListePoszukiwaczy();
+				((Tabelka)table.getModel()).odswiezTabele(rootGUI.poszukiwaczeArrayListToObject2D());
+			}
+		});
 	}
+	
 }

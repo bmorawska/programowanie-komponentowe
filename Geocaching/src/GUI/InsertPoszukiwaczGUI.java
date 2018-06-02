@@ -28,7 +28,7 @@ public class InsertPoszukiwaczGUI extends JFrame {
 		
 		this.rootGUI = rootGUI;
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(700, 300, 450, 300);
 		setTitle("Dodawanie poszukiwacza");
 		contentPane = new JPanel();
@@ -105,5 +105,7 @@ public class InsertPoszukiwaczGUI extends JFrame {
 		emailtextField.setColumns(10);
 		emailtextField.setBounds(208, 119, 142, 20);
 		contentPane.add(emailtextField);
+		
+		setVisible(true);
 	}
 }
