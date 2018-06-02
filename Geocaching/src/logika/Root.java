@@ -4,6 +4,7 @@ import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,6 +53,12 @@ public class Root implements XMLable<Root> {
 		PoszukiwaczDane poszukiwaczDane = new PoszukiwaczDane();
 		poszukiwaczDane.wykonaj(context);
 		poszukiwacze = (ArrayList<Poszukiwacz>) context.get("wynik");
+	}
+	
+	public void odswiezOdkrycia() {
+		OdkryciaDane odkryciaDane = new OdkryciaDane(poszukiwacze, skrzynki);
+		odkryciaDane.wykonaj(context);
+		odkrycia = (ArrayList<Odkrycie>) context.get("wynik");
 	}
 
 	public void zmienBazeDanych(String sql) {
@@ -262,6 +269,99 @@ public class Root implements XMLable<Root> {
 	
 	public void shufflePoszukiwacze() {
 		Collections.shuffle(poszukiwacze);
+	}
+	
+
+	public void aktualizujPoszukiwaczaUpdate(String pseudonim, String email, String poziom) {
+		String sql = "UPDATE poszukiwacz SET email = '" + email + "', poziom = '" + poziom + "' WHERE pseudonim = '" + pseudonim + "'"; 
+		zmienBazeDanych(sql);
+		
+		Poziom poz;
+		switch (poziom) {
+		case "NOWICJUSZ":
+			poz = Poziom.NOWICJUSZ;
+			break;
+		case "UCZEN":
+			poz = Poziom.UCZEN;
+			break;
+		case "CZELADNIK":
+			poz = Poziom.CZELADNIK;
+			break;
+		case "EKSPERT":
+			poz = Poziom.EKSPERT;
+			break;
+		case "MISTRZ":
+			poz = Poziom.MISTRZ;
+			break;
+		default:
+			poz = Poziom.NOWICJUSZ;
+			break;
+		}
+		
+		Poszukiwacz p = null;
+		for (Poszukiwacz posz : poszukiwacze) {
+			if (posz.getPseudonim().equals(pseudonim)) {
+				p = posz;
+				p.setEmail(email);
+				p.setPoziom(poz);
+				
+			}
+		}
+	}
+	
+	public void usunPoszukiwaczaDelete(String pseudonim) {
+		String sql = "DELETE FROM poszukiwacz WHERE pseudonim = '" + pseudonim + "'";
+		usunZBazyDanych(sql);
+		
+		Poszukiwacz p = null;
+		for (Poszukiwacz posz : poszukiwacze) {
+			if (posz.getPseudonim().equals(pseudonim)) {
+				p = posz;
+			}
+		}
+		getPoszukiwacze().remove(p);
+	}
+	
+
+	public void dodajPoszukiwaczaInsert(String pseudonim, String email) {
+		String sql = "INSERT INTO poszukiwacz VALUES ('" + pseudonim + "', '" + email + "', 'NOWICJUSZ')";
+		dodajDoBazyDanych(sql);
+		odswiezPoszukiwaczy();
+	}
+
+	public void dodajOdkrycieInsert(String pseudonim, String nazwa, java.sql.Date  data) {
+		String sql = "INSERT INTO odkrycie (poszukiwacz, skrzynka, dataZnalezienia) VALUES ('" + pseudonim + "', '" + nazwa + "', '" + data + "')";
+		dodajDoBazyDanych(sql);
+		odswiezOdkrycia();
+		
+	}
+
+	public ArrayList<Date> pokazDatyOdkryc() {
+		ArrayList<Date> daty = new ArrayList<>();
+		for (Odkrycie o : odkrycia) {
+			GregorianCalendar gc = o.getDataZnalezienia();
+			Date czas = (Date) gc.getTime();
+			daty.add(czas);
+		}
+		
+		return daty;
+	}
+
+	public String infoOOdkryciuZDnia(Date time) {
+		String info = "";
+		StringBuilder builder = new StringBuilder(info);
+		for (Odkrycie o : odkrycia) {
+			GregorianCalendar gc = o.getDataZnalezienia();
+			Date czas = (Date) gc.getTime();
+			if (time.after(czas) && !time.before(czas)) {
+				builder.append("Odkrycie " + o.getId());
+				builder.append("Poszukiwacz: " + o.getPoszukiwacz().getPseudonim().toString());
+				builder.append("Skrzynka   : " + o.getSkrzynka().getNazwa().toString());
+				builder.append("\n");
+			}
+		}
+		info = builder.toString();
+		return info;
 	}
 
 }

@@ -1,11 +1,15 @@
 package GUI;
 
+import java.sql.Date;
+import java.util.ArrayList;
+
 import logika.Poszukiwacz;
 import logika.Poziom;
 import logika.Root;
+import logika.Skrzynka;
 
 
-public class RootGUI  {
+public class RootGUI<Odkrycie>  {
 
 	private Root root; 
 	
@@ -20,63 +24,22 @@ public class RootGUI  {
 	
 	public void dodajPoszukiwaczaDoBazy(String pseudonim, String email) {
 		
-		String sql = "INSERT INTO poszukiwacz VALUES ('" + pseudonim + "', '" + email + "', 'NOWICJUSZ')";
-		root.dodajDoBazyDanych(sql);
-		root.getPoszukiwacze().add(new Poszukiwacz(pseudonim, email));
-		
+		root.dodajPoszukiwaczaInsert(pseudonim, email);	
 	}
 	
-
+	public void dodajOdkrycieDoBazy(String pseudonim, String nazwa, java.sql.Date  data) {
+		
+		root.dodajOdkrycieInsert(pseudonim, nazwa, data);
+	}
+	
 	public void usunPoszkiwaczaZBazy(String pseudonim) {
-		String sql = "DELETE FROM poszukiwacz WHERE pseudonim = '" + pseudonim + "'";
-		root.usunZBazyDanych(sql);
 		
-		Poszukiwacz p = null;
-		for (Poszukiwacz posz : root.getPoszukiwacze()) {
-			if (posz.getPseudonim().equals(pseudonim)) {
-				p = posz;
-			}
-		}
-		root.getPoszukiwacze().remove(p);
-		
+		root.usunPoszukiwaczaDelete(pseudonim);	
 	}
 	
-
 	public void aktualizujPoszukiwaczaWBazie(String pseudonim, String email, String poziom) {
-		String sql = "UPDATE poszukiwacz SET email = '" + email + "', poziom = '" + poziom + "' WHERE pseudonim = '" + pseudonim + "'"; 
-		root.zmienBazeDanych(sql);
 		
-		Poziom poz;
-		switch (poziom) {
-		case "NOWICJUSZ":
-			poz = Poziom.NOWICJUSZ;
-			break;
-		case "UCZEN":
-			poz = Poziom.UCZEN;
-			break;
-		case "CZELADNIK":
-			poz = Poziom.CZELADNIK;
-			break;
-		case "EKSPERT":
-			poz = Poziom.EKSPERT;
-			break;
-		case "MISTRZ":
-			poz = Poziom.MISTRZ;
-			break;
-		default:
-			poz = Poziom.NOWICJUSZ;
-			break;
-		}
-		
-		Poszukiwacz p = null;
-		for (Poszukiwacz posz : root.getPoszukiwacze()) {
-			if (posz.getPseudonim().equals(pseudonim)) {
-				p = posz;
-				p.setEmail(email);
-				p.setPoziom(poz);
-				
-			}
-		}	
+		root.aktualizujPoszukiwaczaUpdate(pseudonim, email, poziom);	
 	}
 	
 
@@ -84,6 +47,16 @@ public class RootGUI  {
 		
 		for (Poszukiwacz p : root.getPoszukiwacze()) {
 			if (p.getPseudonim().equals(pseudonim)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean sprawdzCzyIstniejeSkrzynka(String skrzynkaNazwa) {
+		
+		for (Skrzynka p : root.getSkrzynki()) {
+			if (p.getNazwa().equals(skrzynkaNazwa)) {
 				return true;
 			}
 		}
@@ -129,5 +102,12 @@ public class RootGUI  {
 		
 	}
 
+	public ArrayList<java.util.Date> dajDatyOdkryc() {
+		return root.pokazDatyOdkryc();
+	}
+
+	public String pobierzInformacjeOOdkryciu(java.util.Date time) {
+		return root.infoOOdkryciuZDnia(time);
+	}
 
 }

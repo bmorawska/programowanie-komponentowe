@@ -1,29 +1,17 @@
 package GUI;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JCheckBox;
 import javax.swing.JTable;
-import javax.swing.border.LineBorder;
 import javax.swing.JScrollPane;
 
 public class PoszukiwaczGUI extends JPanel {
@@ -59,7 +47,7 @@ public class PoszukiwaczGUI extends JPanel {
 		constraints.anchor = GridBagConstraints.FIRST_LINE_START;
 		constraints.weighty = 0.01;
 		
-		ikona = new ImageIcon(MapaGUI.class.getResource(obrazekPoszukiwacz));
+		ikona = new ImageIcon(LogbookGUI.class.getResource(obrazekPoszukiwacz));
 		napis = new JLabel("      Dane poszukiwaczy", ikona, JLabel.CENTER);
 		napis.setFont(new Font("Tahoma", 10 , 30));
 		add(napis, constraints);
@@ -133,6 +121,7 @@ public class PoszukiwaczGUI extends JPanel {
 				DeletePoszukiwaczGUI deletePoszukiwaczGUI = new DeletePoszukiwaczGUI(rootGUI);
 			}
 		});
+		
 		
 		constraints.gridx = 3;
 		constraints.gridy = 4;

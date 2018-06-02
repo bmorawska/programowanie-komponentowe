@@ -44,7 +44,7 @@ public class Odkrycie {
 
 	@Override
 	public String toString() {
-		return "Odkrycie [id=" + id + ", poszukiwacz=" + poszukiwacz + ", skrzynka=" + skrzynka + ", dataZnalezienia="
+		return "Odkrycie: [id=" + id + ", poszukiwacz=" + poszukiwacz + ", skrzynka=" + skrzynka + ", dataZnalezienia="
 				+ dataZnalezienia + "]";
 	}
 }
