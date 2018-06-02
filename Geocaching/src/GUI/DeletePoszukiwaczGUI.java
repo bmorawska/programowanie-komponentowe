@@ -26,7 +26,7 @@ public class DeletePoszukiwaczGUI extends JFrame {
 		
 		this.rootGUI = rootGUI;
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(700, 300, 450, 300);
 		setTitle("Usuwanie poszukiwacza");
 		contentPane = new JPanel();
@@ -78,5 +78,7 @@ public class DeletePoszukiwaczGUI extends JFrame {
 		pseudonimtextField.setBounds(208, 68, 142, 20);
 		contentPane.add(pseudonimtextField);
 		pseudonimtextField.setColumns(10);
+		
+		setVisible(true);
 	}
 }

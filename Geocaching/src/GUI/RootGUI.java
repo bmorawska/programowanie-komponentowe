@@ -80,20 +80,6 @@ public class RootGUI  {
 	}
 	
 
-	public static void main(String[] args) {
-		RootGUI rootGUI = new RootGUI();	
-		try {
-			 	//InsertPoszukiwaczGUI frame = new InsertPoszukiwaczGUI(rootGUI);
-				//DeletePoszukiwaczGUI frame = new DeletePoszukiwaczGUI(rootGUI);
-				//UpdatePoszukiwaczGUI frame = new UpdatePoszukiwaczGUI(rootGUI);
-				PoszukiwaczGUI frame = new PoszukiwaczGUI(rootGUI);
-				frame.setVisible(true);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-	}
-
 	public boolean sprawdzCzyIstniejePoszukiwacz(String pseudonim) {
 		
 		for (Poszukiwacz p : root.getPoszukiwacze()) {
@@ -102,6 +88,45 @@ public class RootGUI  {
 			}
 		}
 		return false;
+	}
+
+	public Object[][] poszukiwaczeArrayListToObject2D() {
+		Object obj [][] = root.getTablicaPoszukiwaczy();
+		return (obj);
+	}
+	
+	public void odswiezListePoszukiwaczy() {
+		root.odswiezPoszukiwaczy();
+	}
+
+	public void posortujPoszukiwaczyAlfabetycznie() {
+		root.sortujPoszukiwaczyPoNazwieComparator();
+		
+	}
+
+	public void posortujSkrzynkiAlfabetycznie() {
+		root.sortujSkrzynkiPoNazwieComparator();
+		
+	}
+
+	public void sortujSkrzynkiPoLiczbieOdnalezien() {
+		root.sortujSkrzynkiPoLiczbieOdnalezienComparator();
+		
+	}
+
+	public void sortujSkrzynkiPoDacieZalozenia() {
+		root.sortujSkrzynkiPoDacieZalozeniaComparator();
+		
+	}
+
+	public void pomieszajSkrzynki() {
+		root.shuffleSkrzynki();
+		
+	}
+	
+	public void pomieszajPoszukiwaczy() {
+		root.shuffleSkrzynki();
+		
 	}
 
 

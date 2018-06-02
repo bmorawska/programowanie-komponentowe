@@ -10,6 +10,8 @@ import java.util.Map;
 
 import dane.*;
 import porownania.SortujPoDacieZalozeniaComparator;
+import porownania.SortujPoLiczbieOdnalezienComparator;
+import porownania.SortujPoNazwieComparator;
 import wyjatki.ObiektOTejNazwiJestJuzNaLiscieException;
 import wyjatki.ObiektOTejNazwieNieIstniejeException;
 
@@ -31,8 +33,7 @@ public class Root implements XMLable<Root> {
 		
 	}
 
-	private void mapujBazeDanych() {
-		//Map<String, Object> context = new HashMap <String, Object>();	
+	private void mapujBazeDanych() {	
 		PoszukiwaczDane poszukiwaczDane = new PoszukiwaczDane();
 		SkrzynkaDane skrzynkaDane = new SkrzynkaDane(poszukiwacze);
 		OdkryciaDane odkryciaDane = new OdkryciaDane(poszukiwacze, skrzynki);
@@ -45,16 +46,9 @@ public class Root implements XMLable<Root> {
 		
 		odkryciaDane.wykonaj(context);
 		odkrycia = (ArrayList<Odkrycie>) context.get("wynik");
-		
-		/*Test metod do dodawania. Jak będzie interfejs graficzny to można wywalić
-		dodajDoBazyDanych("INSERT INTO poszukiwacz VALUES ('Basia', 'basia@gmail.com', 'MISTRZ')");
-		usunZBazyDanych("DELETE FROM poszukiwacz WHERE pseudonim = 'Basia'");
-		zmienBazeDanych("UPDATE poszukiwacz SET email = 'Baldus97@gmail.com' WHERE pseudonim = 'Baldus'");
-		*/
 	}
 	
 	public void odswiezPoszukiwaczy() {
-		//Map<String, Object> context = new HashMap <String, Object>();	
 		PoszukiwaczDane poszukiwaczDane = new PoszukiwaczDane();
 		poszukiwaczDane.wykonaj(context);
 		poszukiwacze = (ArrayList<Poszukiwacz>) context.get("wynik");
@@ -227,6 +221,47 @@ public class Root implements XMLable<Root> {
 		}
 		return "";
 		
+	}
+
+	public Object[][] getTablicaPoszukiwaczy() {
+		
+		Object obj[][] = new Object[poszukiwacze.size()][3];
+		
+		for (int i = 0; i < poszukiwacze.size(); i++) {
+			obj[i][0] = poszukiwacze.get(i).getPseudonim();
+			obj[i][1] = poszukiwacze.get(i).getEmail();
+			obj[i][2] = poszukiwacze.get(i).getPoziom();
+		}
+		
+		return (obj);
+		
+	}
+
+	public void sortujPoszukiwaczyPoNazwieComparator() {
+		Collections.sort(poszukiwacze, new SortujPoNazwieComparator<>());
+	}
+
+	public void sortujSkrzynkiPoNazwieComparator() {
+		Collections.sort(skrzynki, new SortujPoNazwieComparator<>());	
+	}
+
+	public void sortujSkrzynkiPoLiczbieOdnalezienComparator() {
+		Collections.sort(skrzynki, new SortujPoLiczbieOdnalezienComparator());
+		
+	}
+
+	public void sortujSkrzynkiPoDacieZalozeniaComparator() {
+		Collections.sort(skrzynki, new SortujPoDacieZalozeniaComparator());
+		
+	}
+
+	public void shuffleSkrzynki() {
+		Collections.shuffle(skrzynki);
+		
+	}
+	
+	public void shufflePoszukiwacze() {
+		Collections.shuffle(poszukiwacze);
 	}
 
 }

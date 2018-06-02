@@ -33,7 +33,7 @@ public class UpdatePoszukiwaczGUI extends JFrame {
 		
 		this.rootGUI = rootGUI;
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(700, 300, 450, 300);
 		setTitle("Zmiana danych poszukiwacza");
 		contentPane = new JPanel();
@@ -207,5 +207,6 @@ public class UpdatePoszukiwaczGUI extends JFrame {
 		poziomNowyComboBox.setBounds(271, 145, 153, 23);
 		
 		contentPane.add(poziomNowyComboBox);
+		setVisible(true);
 	}
 }
