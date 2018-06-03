@@ -62,7 +62,7 @@ public class LogbookGUI extends JPanel {
 		
 		info = new JTextPane();
 		info.setEditable(false);
-		info.setText("piszu piszu");
+		info.setText("Tutaj pojawi się \ninformacja o odkryciu.");
 		JScrollPane scroll = new JScrollPane(info);
 		add(scroll, constraints);
 		

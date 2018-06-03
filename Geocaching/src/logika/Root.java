@@ -3,6 +3,7 @@ package logika;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -35,16 +36,15 @@ public class Root implements XMLable<Root> {
 	}
 
 	private void mapujBazeDanych() {	
-		PoszukiwaczDane poszukiwaczDane = new PoszukiwaczDane();
-		SkrzynkaDane skrzynkaDane = new SkrzynkaDane(poszukiwacze);
-		OdkryciaDane odkryciaDane = new OdkryciaDane(poszukiwacze, skrzynki);
-		
+		PoszukiwaczDane poszukiwaczDane = new PoszukiwaczDane();	
 		poszukiwaczDane.wykonaj(context);
 		poszukiwacze = (ArrayList<Poszukiwacz>) context.get("wynik");
-
+		
+		SkrzynkaDane skrzynkaDane = new SkrzynkaDane(poszukiwacze);
 		skrzynkaDane.wykonaj(context);
 		skrzynki = (ArrayList<Skrzynka>) context.get("wynik");
 		
+		OdkryciaDane odkryciaDane = new OdkryciaDane(poszukiwacze, skrzynki);
 		odkryciaDane.wykonaj(context);
 		odkrycia = (ArrayList<Odkrycie>) context.get("wynik");
 	}
@@ -350,17 +350,27 @@ public class Root implements XMLable<Root> {
 	public String infoOOdkryciuZDnia(Date time) {
 		String info = "";
 		StringBuilder builder = new StringBuilder(info);
+		GregorianCalendar dataZnalezieniaTime = new GregorianCalendar();
+		dataZnalezieniaTime.setTime(time);
 		for (Odkrycie o : odkrycia) {
-			GregorianCalendar gc = o.getDataZnalezienia();
-			Date czas = (Date) gc.getTime();
-			if (time.after(czas) && !time.before(czas)) {
+			GregorianCalendar dataZnalezienia = o.getDataZnalezienia();
+			if (dataZnalezienia.get(Calendar.DAY_OF_MONTH) == dataZnalezieniaTime.get(Calendar.DAY_OF_MONTH) &&
+				dataZnalezienia.get(Calendar.MONTH) == dataZnalezieniaTime.get(Calendar.MONTH) &&
+				dataZnalezienia.get(Calendar.YEAR) == dataZnalezieniaTime.get(Calendar.YEAR)) {
 				builder.append("Odkrycie " + o.getId());
+				builder.append("  " + o.getDataZnalezienia().getTime());
+				builder.append("\n");
 				builder.append("Poszukiwacz: " + o.getPoszukiwacz().getPseudonim().toString());
+				builder.append("\n");
 				builder.append("Skrzynka   : " + o.getSkrzynka().getNazwa().toString());
+				builder.append("\n");
 				builder.append("\n");
 			}
 		}
 		info = builder.toString();
+		if (info.equals("")) {
+			info = "Tego dnia nie zanotowano żadnych odkryć.";
+		}
 		return info;
 	}
 

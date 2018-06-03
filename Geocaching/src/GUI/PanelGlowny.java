@@ -44,6 +44,7 @@ public class PanelGlowny extends JFrame {
 		tabbedPane.addTab("Skrzynki", null, skrzynkaPanel, null);
 		tabbedPane.addTab("Logbook", null, logbookPanel, null);
 		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 1000, 800);
 		
