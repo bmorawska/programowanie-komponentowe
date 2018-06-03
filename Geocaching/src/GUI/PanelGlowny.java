@@ -17,7 +17,7 @@ public class PanelGlowny extends JFrame {
 	private RootGUI rootGUI = new RootGUI();
 	JFrame frame = new JFrame("Geocaching");
 	JPanel glownyPanel = new JPanel();
-	JPanel mapyPanel = new MapaGUI();
+	JPanel logbookPanel = new LogbookGUI(rootGUI);
 	JPanel poszukiwaczPanel = new PoszukiwaczGUI(rootGUI);
 	JPanel skrzynkaPanel = new JPanel();
 	GridLayout gl = new GridLayout(1, 2);
@@ -37,12 +37,14 @@ public class PanelGlowny extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(glownyPanel);
 		glownyPanel.setLayout(gl);
-		
+
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		glownyPanel.add(tabbedPane);
 		tabbedPane.addTab("Poszukiwacze", null, poszukiwaczPanel, null);
 		tabbedPane.addTab("Skrzynki", null, skrzynkaPanel, null);
-		tabbedPane.addTab("Mapa", null, mapyPanel, null);
+		tabbedPane.addTab("Logbook", null, logbookPanel, null);
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 1000, 800);
 		

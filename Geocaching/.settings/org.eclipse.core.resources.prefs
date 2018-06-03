@@ -1,7 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/GUI/DeletePoszukiwaczGUI.java=UTF-8
 encoding//src/GUI/InsertPoszukiwaczGUI.java=UTF-8
-encoding//src/GUI/MapaGUI.java=UTF-8
+encoding//src/GUI/LogbookGUI.java=UTF-8
 encoding//src/GUI/Menu.java=UTF-8
 encoding//src/GUI/OProgramieGUI.java=UTF-8
 encoding//src/GUI/PanelGlowny.java=UTF-8
@@ -14,6 +14,7 @@ encoding//src/dane/OdkryciaDane.java=UTF-8
 encoding//src/dane/Outlookable.java=UTF-8
 encoding//src/dane/PoszukiwaczDane.java=UTF-8
 encoding//src/dane/SkrzynkaDane.java=UTF-8
+encoding//src/dane/WyroznieniaDaty.java=UTF-8
 encoding//src/logika/Root.java=UTF-8
 encoding//src/logika/Skrzynka.java=UTF-8
 encoding//src/porownania/SortujPoDacieZalozeniaComparator.java=UTF-8

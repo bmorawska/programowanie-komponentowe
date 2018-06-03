@@ -7,6 +7,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import logika.*;
 
 public class OdkryciaDane extends BazaDanych {
@@ -45,12 +47,15 @@ public class OdkryciaDane extends BazaDanych {
 					skrzynka = s;
 				}
 			}
+			if (skrzynka == null || poszukiwacz == null) {
+				JOptionPane.showMessageDialog(null, "Nie udało się zmapować bazy", "Błąd", JOptionPane.ERROR_MESSAGE);
+				break;
+			}
 
 			Odkrycie o = new Odkrycie(idOdkrycia, poszukiwacz, skrzynka, dataZnalezienia);
 			odkrycia.add(o);
 
 		}
-
 		context.put("wynik", odkrycia);
 	}
 }
